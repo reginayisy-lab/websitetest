@@ -1,4 +1,9 @@
 /* 나우리해운항공 랜딩페이지 — Contact Us 문의 폼 (검증·전송·결과 표시) */
+
+// TODO: Apps Script 웹앱 배포 후 받은 URL(https://script.google.com/macros/s/.../exec)을 넣을 것
+const ENDPOINT = '';
+const TIMEOUT_MS = 10000; // 10초
+
 (function () {
   const form = document.getElementById('inquiry');
   if (!form) return;
@@ -30,7 +35,7 @@
     const em = v('email');
     check('email', !em ? '이메일을 입력해 주세요.' : (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) ? '' : '이메일 형식을 확인해 주세요. 예: name@company.com'));
     const ph = v('phone');
-    check('phone', !ph ? '연락처를 입력해 주세요.' : (/^[0-9+\-\s()]{8,}$/.test(ph) ? '' : '숫자와 하이픈(-)만 입력해 주세요.'));
+    check('phone', !ph ? '연락처를 입력해 주세요.' : (/^[0-9+\-\s()]{8,}$/.test(ph) ? '' : '숫자와 하이픈(-)만 입력해 주세요. (8자 이상)'));
     ['cbm', 'kg', 'pkgs'].forEach(id => { const n = v(id); check(id, n && (isNaN(+n) || +n < 0) ? '0 이상 숫자로 입력해 주세요.' : ''); });
     const d = v('etd');
     if (d) {
@@ -53,10 +58,28 @@
     statusEl.innerHTML = html;
   }
 
-  // TODO(5단계): Google Apps Script 웹앱 ENDPOINT로 전송 (text/plain, 10초 타임아웃).
-  // 지금은 연결 전이라 항상 false → 실패 메시지가 표시됩니다.
+  // Apps Script 웹앱으로 전송. CORS 사전 요청을 피하려고 Content-Type은 text/plain.
+  // 성공 기준: HTTP 200 + 응답 JSON {"ok": true}. 그 외(타임아웃·네트워크 오류 포함)는 실패.
   async function sendInquiry(data) {
-    return false;
+    if (!ENDPOINT) return false;
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data),
+        redirect: 'follow',
+        signal: ctrl.signal
+      });
+      if (!res.ok) return false;
+      const out = await res.json();
+      return !!(out && out.ok === true);
+    } catch (err) {
+      return false;
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   form.addEventListener('submit', async e => {
@@ -78,7 +101,9 @@
       kg: form.kg.value ? +form.kg.value : null,
       pkgs: form.pkgs.value ? +form.pkgs.value : null,
       etd: form.etd.value || null,
-      message: form.message.value.trim()
+      message: form.message.value.trim(),
+      status: '신규',
+      createdAt: new Date().toISOString()
     };
 
     submitBtn.disabled = true; submitBtn.classList.add('loading'); submitBtn.textContent = '보내는 중…';
