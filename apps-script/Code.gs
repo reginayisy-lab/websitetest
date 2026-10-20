@@ -8,8 +8,8 @@
  */
 
 // ===== 설정 =====
-// TODO: 문의 알림을 받을 메일 주소 확인 필요 (여러 명이면 쉼표로 구분: 'a@x.com,b@x.com')
-const NOTIFY_TO = '';
+// 문의 알림을 받을 메일 주소 (여러 명이면 쉼표로 구분: 'a@x.com,b@x.com')
+const NOTIFY_TO = 'regina.yi.sy@gmail.com';
 
 // 시트에 바인딩된 스크립트(시트 > 확장 프로그램 > Apps Script)로 만들면 비워 둠.
 // 독립 스크립트로 만들 때만 스프레드시트 ID를 적음 (URL의 /d/ 와 /edit 사이 값).

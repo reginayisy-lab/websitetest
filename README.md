@@ -31,14 +31,13 @@ HTML + CSS + 순수 JavaScript 정적 사이트(빌드 없음)이며, Contact Us
 | 5 | 중국·동남아 항구 현재 서비스 여부 | 주력 지역 | `index.html` |
 | 6 | 본사·부산 사무소 현재 주소 | Contact, Footer | `index.html` |
 | 7 | 문의 메일 주소, 운영 시간 | Contact | `index.html` |
-| 8 | 문의 알림 수신 메일 주소 | – | `apps-script/Code.gs` (`NOTIFY_TO`) |
-| 9 | Apps Script 웹앱 URL | – | `assets/js/form.js` (`ENDPOINT`) |
-| 10 | 사업자등록번호 | Footer | `index.html` |
-| 11 | 개인정보 보유 기간 | 폼 "내용 보기", 개인정보처리방침 | `index.html`, `privacy.html` |
-| 12 | 개인정보처리방침 전문 (파기 운영, 처리 위탁·국외 이전, 보호책임자, 시행일), 법무 검토 | 개인정보처리방침 | `privacy.html` |
-| 13 | 로고 원본 파일(AI·SVG), 로고 블루와 primary 색 통일 | 상단, Footer | `assets/img/` |
-| 14 | OG 이미지 1200×630 (`assets/img/og-image.png`) | 링크 공유 썸네일 | `index.html` head |
-| 15 | 도메인, 호스팅 → canonical·og:url | – | `index.html` head |
+| 8 | Apps Script 웹앱 URL | – | `assets/js/form.js` (`ENDPOINT`) |
+| 9 | 사업자등록번호 | Footer | `index.html` |
+| 10 | 개인정보 보유 기간 | 폼 "내용 보기", 개인정보처리방침 | `index.html`, `privacy.html` |
+| 11 | 개인정보처리방침 전문 (파기 운영, 처리 위탁·국외 이전, 보호책임자, 시행일), 법무 검토 | 개인정보처리방침 | `privacy.html` |
+| 12 | 로고 원본 파일(AI·SVG), 로고 블루와 primary 색 통일 | 상단, Footer | `assets/img/` |
+| 13 | OG 이미지 1200×630 (`assets/img/og-image.png`) | 링크 공유 썸네일 | `index.html` head |
+| 14 | 도메인, 호스팅 → canonical·og:url | – | `index.html` head |
 
 ## 문의 폼 연결 (Google Apps Script)
 
@@ -46,7 +45,7 @@ HTML + CSS + 순수 JavaScript 정적 사이트(빌드 없음)이며, Contact Us
 1. 구글 드라이브에서 새 스프레드시트를 만듭니다. 예: `나우리 홈페이지 문의`
 2. 시트 메뉴 **확장 프로그램 → Apps Script**를 엽니다.
 3. 기본 `Code.gs` 내용을 지우고 `apps-script/Code.gs`를 통째로 붙여 넣습니다.
-4. 맨 위 `NOTIFY_TO`에 알림 받을 메일 주소를 넣습니다. 여러 명이면 쉼표로 구분합니다.
+4. 맨 위 `NOTIFY_TO`가 알림 받을 메일 주소입니다. (현재 `regina.yi.sy@gmail.com`, 여러 명이면 쉼표로 구분)
 5. 왼쪽 **⚙ 프로젝트 설정 → 시간대**를 `(GMT+09:00) 서울`로 맞춥니다. 접수시각 기준입니다.
 6. 저장 후, 위쪽 함수 선택에서 `setup`을 고르고 **실행**합니다.
    - 권한 승인 창이 뜨면 본인 계정으로 허용합니다. ("확인되지 않은 앱" 경고가 나오면 고급 → 이동)
