@@ -6,7 +6,10 @@
 
 | 경로 | 내용 |
 |---|---|
-| `index.html` | 랜딩페이지 (CSS·JS·로고 내장 단일 파일) |
+| `index.html` | 랜딩페이지 마크업 |
+| `assets/css/style.css` | 스타일 |
+| `assets/js/main.js` | 애니메이션·스크롤 효과 |
+| `assets/js/form.js` | 문의 폼 검증·전송 (전송은 5단계에서 연결) |
 | `assets/img/` | 로고 PNG (국문·영문·심볼) |
 | `docs/spec.md` | Claude Code 작업 명세 (문구·디자인·애니메이션·폼) |
 
